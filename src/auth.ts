@@ -1,5 +1,6 @@
 import NextAuth from "next-auth";
 import Credentials from "next-auth/providers/credentials";
+import GitHub from "next-auth/providers/github";
 import bcrypt from "bcryptjs";
 import { PrismaAdapter } from "@auth/prisma-adapter";
 import { prisma } from "@/lib/prisma";
@@ -10,7 +11,7 @@ const loginSchema = z.object({
   password: z.string().min(1),
 });
 
-export const { auth, signIn, signOut } = NextAuth({
+export const { handlers, auth, signIn, signOut } = NextAuth({
   adapter: PrismaAdapter(prisma),
   secret: process.env.AUTH_SECRET,
   session: { strategy: "jwt" },
@@ -41,6 +42,10 @@ export const { auth, signIn, signOut } = NextAuth({
           return null;
         }
       },
+    }),
+    GitHub({
+      clientId: process.env.GITHUB_CLIENT_ID!,
+      clientSecret: process.env.GITHUB_CLIENT_SECRET!,
     }),
   ],
   callbacks: {
