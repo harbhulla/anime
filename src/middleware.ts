@@ -1,7 +1,8 @@
 import { auth } from "@/auth";
 import { NextRequest } from "next/server";
+import type { Session } from "next-auth";
 
-export default auth((req: NextRequest & { auth: any }) => {
+export default auth((req: NextRequest & { auth: Session | null }) => {
   const isLoggedIn = !!req.auth;
   const isOnDashboard = req.nextUrl.pathname.startsWith("/dashboard");
   const isOnLogin = req.nextUrl.pathname.startsWith("/login");

@@ -287,12 +287,14 @@ anime
 │  │  │  ├─ [...nextauth]
 │  │  │  │  └─ route.ts
 │  │  │  ├─ auth
-│  │  │  │  └─ me
+│  │  │  │  ├─ [...nextauth]
+│  │  │  │  │  └─ route.ts
+│  │  │  │  ├─ me
+│  │  │  │  │  └─ route.ts
+│  │  │  │  └─ signup
 │  │  │  │     └─ route.ts
 │  │  │  ├─ session
 │  │  │  │  └─ route.ts
-│  │  │  └─ signup
-│  │  │     └─ route.ts
 │  │  ├─ components
 │  │  │  └─ auth
 │  │  │     ├─ AuthCard.tsx
