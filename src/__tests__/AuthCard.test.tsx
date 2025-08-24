@@ -6,7 +6,6 @@ import { vi } from "vitest";
 import React from "react";
 import { AuthCard } from "@/app/components/auth/AuthCard";
 
-// Mocks for Next.js / NextAuth used inside your component
 vi.mock("next/navigation", () => ({
   useRouter: () => ({ push: vi.fn(), replace: vi.fn(), prefetch: vi.fn() }),
 }));
@@ -22,11 +21,9 @@ describe("AuthCard", () => {
   it("renders the login form with email & password and a submit button", () => {
     render(<AuthCard mode="login" />);
 
-    // Be flexible with copy; rely on roles/labels
     expect(screen.getByLabelText(/email/i)).toBeInTheDocument();
     expect(screen.getByLabelText(/password/i)).toBeInTheDocument();
 
-    // Allow “Log in” or “Sign in”
     const submit = screen.getByRole("button", {
       name: /log ?in|sign ?in/i,
     });
@@ -43,7 +40,6 @@ describe("AuthCard", () => {
       screen.getByLabelText(/confirm password|confirm/i)
     ).toBeInTheDocument();
 
-    // Allow “Sign up” or “Create account”
     const submit = screen.getByRole("button", {
       name: /sign ?up|create account/i,
     });
