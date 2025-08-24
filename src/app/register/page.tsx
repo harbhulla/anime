@@ -13,7 +13,7 @@ export default async function LoginPage() {
             Sign in to your account or create a new one
           </p>
         </div>
-        <AuthCard mode="login" />
+        <AuthCard mode="signup" />
       </div>
     </div>
   );

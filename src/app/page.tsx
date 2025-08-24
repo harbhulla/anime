@@ -1,40 +1,45 @@
 import Link from "next/link";
+import { Button } from "@/components/ui/button";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 
 export default function Home() {
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-50">
-      <main className="text-center space-y-6">
-        <h1 className="text-4xl font-bold text-gray-900">
-          Welcome to Next Auth App
-        </h1>
-        <p className="text-gray-600">
-          Sign in to your account or create a new one to get started.
-        </p>
+    <div className="flex items-center justify-center bg-background">
+      <Card className="w-full max-w-md text-center">
+        <CardHeader>
+          <CardTitle className="text-3xl font-bold text-foreground">
+            Welcome to AnimeVault
+          </CardTitle>
+          <CardDescription className="text-muted-foreground">
+            Discover, track, and review your favorite anime. Log in to your
+            account or create one to start building your list.
+          </CardDescription>
+        </CardHeader>
 
-        <div className="flex justify-center gap-4">
-          <Link
-            href="/login"
-            className="px-4 py-2 rounded-lg bg-blue-600 text-white font-medium hover:bg-blue-700"
-          >
-            Login
-          </Link>
-          <Link
-            href="/register"
-            className="px-4 py-2 rounded-lg bg-gray-200 text-gray-800 font-medium hover:bg-gray-300"
-          >
-            Sign Up
-          </Link>
-        </div>
+        <CardContent>
+          <div className="flex justify-center gap-4">
+            <Button asChild>
+              <Link href="/login">Login</Link>
+            </Button>
+            <Button asChild variant="outline">
+              <Link href="/register">Sign Up</Link>
+            </Button>
+          </div>
+        </CardContent>
 
-        <div className="mt-8">
-          <Link
-            href="/api/auth/signin"
-            className="text-blue-600 hover:text-blue-800 underline"
-          >
-            Test NextAuth Sign In
-          </Link>
-        </div>
-      </main>
+        <CardFooter className="flex justify-center">
+          <Button asChild variant="link">
+            <Link href="/explore">Browse Anime Database</Link>
+          </Button>
+        </CardFooter>
+      </Card>
     </div>
   );
 }

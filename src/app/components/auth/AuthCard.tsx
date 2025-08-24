@@ -1,11 +1,11 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useRouter } from "next/navigation";
+import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { signIn } from "next-auth/react";
-import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -39,110 +39,78 @@ const signupSchema = z
 
 type LoginFormValues = z.infer<typeof loginSchema>;
 type SignupFormValues = z.infer<typeof signupSchema>;
-type AuthFormValues = LoginFormValues | SignupFormValues;
 
-export function AuthCard() {
-  const [mode, setMode] = useState<"login" | "signup">("login");
-  const [error, setError] = useState<string>("");
+type AuthCardProps = {
+  mode: "login" | "signup";
+};
+
+export function AuthCard({ mode }: AuthCardProps) {
   const router = useRouter();
+  const [error, setError] = useState<string>("");
 
   const loginForm = useForm<LoginFormValues>({
     resolver: zodResolver(loginSchema),
-    defaultValues: {
-      email: "",
-      password: "",
-    },
+    defaultValues: { email: "", password: "" },
   });
 
   const signupForm = useForm<SignupFormValues>({
     resolver: zodResolver(signupSchema),
-    defaultValues: {
-      name: "",
-      email: "",
-      password: "",
-      confirmPassword: "",
-    },
+    defaultValues: { name: "", email: "", password: "", confirmPassword: "" },
   });
-
-  const currentForm = mode === "login" ? loginForm : signupForm;
 
   const onLoginSubmit = async (data: LoginFormValues) => {
     setError("");
-    try {
-      const result = await signIn("credentials", {
-        redirect: false,
-        email: data.email,
-        password: data.password,
-      });
+    const result = await signIn("credentials", {
+      redirect: false,
+      email: data.email,
+      password: data.password,
+    });
 
-      if (result?.error) {
-        setError("Invalid email or password");
-      } else if (result?.ok) {
-        router.push("/dashboard");
-        router.refresh();
-      }
-    } catch (error) {
-      console.error("Login error:", error);
-      setError("Something went wrong. Please try again.");
+    if (result?.error) {
+      setError("Invalid email or password");
+    } else if (result?.ok) {
+      router.push("/dashboard");
+      router.refresh();
     }
   };
 
   const onSignupSubmit = async (data: SignupFormValues) => {
     setError("");
-    try {
-      const res = await fetch("/api/auth/signup", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          name: data.name,
-          email: data.email,
-          password: data.password,
-        }),
-      });
-
-      if (!res.ok) {
-        const errorData = await res.json();
-        setError(errorData.message || "Signup failed");
-        return;
-      }
-
-      const result = await signIn("credentials", {
-        redirect: false,
+    const res = await fetch("/api/auth/signup", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        name: data.name,
         email: data.email,
         password: data.password,
-      });
+      }),
+    });
 
-      if (result?.error) {
-        setError(
-          "Account created but login failed. Please try logging in manually."
-        );
-      } else if (result?.ok) {
-        router.push("/dashboard");
-        router.refresh();
-      }
-    } catch (error) {
-      console.error("Signup error:", error);
-      setError("Something went wrong. Please try again.");
+    if (!res.ok) {
+      const errorData = await res.json();
+      setError(errorData.message || "Signup failed");
+      return;
     }
-  };
 
-  const handleModeSwitch = () => {
-    const newMode = mode === "login" ? "signup" : "login";
-    setMode(newMode);
-    setError("");
+    const result = await signIn("credentials", {
+      redirect: false,
+      email: data.email,
+      password: data.password,
+    });
 
-    loginForm.reset();
-    signupForm.reset();
+    if (result?.error) {
+      setError("Account created but login failed. Try logging in manually.");
+    } else if (result?.ok) {
+      router.push("/dashboard");
+      router.refresh();
+    }
   };
 
   const handleGitHubSignIn = async () => {
     try {
-      await signIn("github", {
-        callbackUrl: "/dashboard",
-        redirect: true,
-      });
-    } catch (error) {
-      console.error("GitHub sign-in error:", error);
+      await signIn("github", { callbackUrl: "/dashboard", redirect: true });
+    } catch (err) {
+      console.error("GitHub sign-in error:", err);
       setError("GitHub sign-in failed. Please try again.");
     }
   };
@@ -162,7 +130,7 @@ export function AuthCard() {
 
       <CardContent>
         {error && (
-          <div className="mb-4 p-3 bg-red-50 border border-red-200 text-red-700 text-sm rounded-md">
+          <div className="mb-4 p-3 bg-red-50 dark:bg-red-900/30 border border-red-200 dark:border-red-700 text-red-700 dark:text-red-400 text-sm rounded-md">
             {error}
           </div>
         )}
@@ -198,7 +166,7 @@ export function AuthCard() {
 
             <Button
               type="submit"
-              className="w-full"
+              className="w-full cursor-pointer"
               disabled={loginForm.formState.isSubmitting}
             >
               {loginForm.formState.isSubmitting ? "Logging in..." : "Login"}
@@ -263,7 +231,7 @@ export function AuthCard() {
 
             <Button
               type="submit"
-              className="w-full"
+              className="w-full cursor-pointer"
               disabled={signupForm.formState.isSubmitting}
             >
               {signupForm.formState.isSubmitting
@@ -277,17 +245,22 @@ export function AuthCard() {
       <CardFooter className="flex flex-col gap-2">
         <Button
           variant="outline"
-          className="w-full"
+          className="w-full cursor-pointer"
           onClick={handleGitHubSignIn}
           type="button"
         >
           Continue with GitHub
         </Button>
-        <Button variant="link" type="button" onClick={handleModeSwitch}>
-          {mode === "login"
-            ? "Don't have an account? Sign Up"
-            : "Already have an account? Login"}
-        </Button>
+
+        {mode === "login" ? (
+          <Button asChild variant="link" className="cursor-pointer">
+            <a href="/register">Don’t have an account? Sign Up</a>
+          </Button>
+        ) : (
+          <Button asChild variant="link" className="cursor-pointer">
+            <a href="/login">Already have an account? Login</a>
+          </Button>
+        )}
       </CardFooter>
     </Card>
   );
