@@ -15,7 +15,7 @@ export default function Home() {
       <Card className="w-full max-w-md text-center">
         <CardHeader>
           <CardTitle className="text-3xl font-bold text-foreground">
-            Welcome to AnimeVault
+            Welcome to MyAnimeVault
           </CardTitle>
           <CardDescription className="text-muted-foreground">
             Discover, track, and review your favorite anime. Log in to your
