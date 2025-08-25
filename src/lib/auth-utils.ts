@@ -26,7 +26,7 @@ export function createAuthMiddleware() {
   return async function middleware(request: NextRequest) {
     const session = await auth();
     const { pathname } = request.nextUrl;
-
+    console.log("HIT");
     const isAuthPage =
       pathname.startsWith("/login") || pathname.startsWith("/register");
     const isProtectedPage =

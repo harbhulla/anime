@@ -1,10 +1,9 @@
 import "./globals.css";
 import { ThemeProvider } from "@/app/components/theme-provider";
-import { ModeToggle } from "./components/ModeToggle";
-
+import AppHeader from "./components/AppHeader";
 export const metadata = {
-  title: "Next Auth App",
-  description: "Authentication with NextJS",
+  title: "AnimeVault",
+  description: "Anime Database",
 };
 
 export default function RootLayout({
@@ -22,10 +21,8 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          <div className="flex justify-end p-4">
-            <ModeToggle />
-          </div>
-          {children}
+          <AppHeader />
+          <div className="flex flex-col min-h-screen">{children}</div>
         </ThemeProvider>
       </body>
     </html>
