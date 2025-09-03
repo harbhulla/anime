@@ -18,8 +18,9 @@ A full-stack anime discovery and management platform built with Next.js, TypeScr
 
 🛠 Tech Stack
 
-Frontend: Next.js, TypeScript, Tailwind CSS
-Backend: Next.js API Routes, Prisma ORM
-Database: PostgreSQL
-Authentication: NextAuth
+Frontend: Next.js, TypeScript, Tailwind CSS<br>
+Backend: Next.js API Routes, Prisma ORM<br>
+Database: PostgreSQL<br>
+Authentication: NextAuth<br>
 Dev Tools: ESLint, Prettier, Git
+
