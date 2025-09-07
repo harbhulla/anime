@@ -21,12 +21,13 @@ A full-stack anime discovery and management platform — built for fans, by a fa
 
 🛠️ Tech Stack
 Layer	Technology
-Frontend	Next.js, TypeScript, Tailwind CSS
-Backend	Next.js API Routes, Prisma ORM
-Database	PostgreSQL
-Auth	NextAuth
-Dev Tools	ESLint, Prettier, Git
+Frontend	Next.js, TypeScript, Tailwind CSS<br>
+Backend	Next.js API Routes, Prisma ORM<br>
+Database	PostgreSQL<br>
+Auth	NextAuth<br>
+Dev Tools	ESLint, Prettier, Git<br>
 🌟 Closing Note
 
 This project is still growing, but the foundation is solid. The goal is to create a smooth, modern space where anime fans can discover, track, and enjoy their favorite series — all in one place. Stay tuned for more features soon ✨
+
 
