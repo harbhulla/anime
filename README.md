@@ -1,27 +1,32 @@
-🎌 Anime Platform (In Progress)
+🌸 Anime Platform
 
-A full-stack anime discovery and management platform built with Next.js, TypeScript, Prisma, and PostgreSQL. The app allows users to create accounts, authenticate securely, and explore anime content in a modern, responsive interface.
+A full-stack anime discovery and management platform — built for fans, by a fan.
 
- Features (Planned & In Progress)
+✨ Features & Roadmap
 
-User Authentication – Secure login and session handling with NextAuth
+✔️ Authentication – Secure login with NextAuth
+✔️ Responsive UI – Built with Tailwind CSS for desktop & mobile
+✔️ Database Layer – Powered by PostgreSQL + Prisma ORM
+✔️ Modern Stack – Next.js + TypeScript for maintainable code
 
-Responsive UI – Built with Tailwind CSS for clean, mobile-first design
+🚧 Coming Soon
 
-Database Layer – PostgreSQL with Prisma ORM for schema and queries
+📡 External anime API integration (real-time data)
 
-Modern Frontend – Next.js + TypeScript for scalable development
+⭐ Personalized watchlists, favorites & ratings
 
-Anime Data Integration – (planned) Integration with anime APIs for real-time data
+🎨 More polished UI + dark/light mode toggle
 
-User Features – Favorites, watchlists, and rating system (planned)
+👤 User profiles & social features
 
-Tech Stack
+🛠️ Tech Stack
+Layer	Technology
+Frontend	Next.js, TypeScript, Tailwind CSS
+Backend	Next.js API Routes, Prisma ORM
+Database	PostgreSQL
+Auth	NextAuth
+Dev Tools	ESLint, Prettier, Git
+🌟 Closing Note
 
-Frontend: Next.js, TypeScript, Tailwind CSS<br>
-Backend: Next.js API Routes, Prisma ORM<br>
-Database: PostgreSQL<br>
-Authentication: NextAuth<br>
-Dev Tools: ESLint, Prettier, Git
-
+This project is still growing, but the foundation is solid. The goal is to create a smooth, modern space where anime fans can discover, track, and enjoy their favorite series — all in one place. Stay tuned for more features soon ✨
 
